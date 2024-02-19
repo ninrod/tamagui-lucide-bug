@@ -1,4 +1,4 @@
-import { View, XStack, YStack } from 'tamagui'
+import { Input, View, XStack, YStack } from 'tamagui'
 import { User } from '../components/User'
 import { ChangeTheme } from '../components/ChangeTheme'
 import { useContext } from 'react';
@@ -15,9 +15,15 @@ export default function TabOneScreen() {
           <User />
           <ChangeTheme onCheckedChange={context.setIsDarkTheme}/>
         </XStack>
-        <Link href='/modal' asChild >
-          <Button background="outline" />
-        </Link>
+        <XStack gap="$2" mt="$4">
+          <Input f={1} size="$5" placeholder='buscar...' focusStyle={{
+            borderWidth: 2,
+            borderColor: "$blue10"
+          }}/>
+          <Link href='/modal' asChild >
+            <Button background="outline" size="$5" />
+          </Link>
+        </XStack>
       </YStack>
     </View>
   )
