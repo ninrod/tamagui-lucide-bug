@@ -26,16 +26,16 @@ const RootLayoutNav = () => {
 
   const colorScheme = useColorScheme()
   return (
-    <ThemeContext.Provider value={{isDarkTheme: isDarkTheme, setIsDarkTheme: setIsDarkTheme}}>
-      <TamaguiProvider config={config} defaultTheme={colorScheme as any}>
-        <Theme name={isDarkTheme ? "dark" : "light"}>
+    <TamaguiProvider config={config} defaultTheme={colorScheme as any}>
+      <Theme name={isDarkTheme ? "dark" : "light"}>
+        <ThemeContext.Provider value={{ isDarkTheme: isDarkTheme, setIsDarkTheme: setIsDarkTheme }}>
           <Stack>
             <Stack.Screen name="(telas)" options={{ headerShown: false }} />
             <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
           </Stack>
-        </Theme>
-      </TamaguiProvider>
-    </ThemeContext.Provider>
+        </ThemeContext.Provider>
+      </Theme>
+    </TamaguiProvider>
   )
 }
 
