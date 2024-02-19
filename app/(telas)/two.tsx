@@ -1,9 +1,11 @@
-import { Text, View } from 'tamagui'
+import { Sun, Moon } from '@tamagui/lucide-icons'
+import { XStack } from 'tamagui'
 
 export default function TabTwoScreen() {
   return (
-    <View flex={1} alignItems='center'>
-      <Text fontSize={20}>Tab Two</Text>
-    </View>
+    <XStack jc="space-between">
+      <Sun/>
+      <Moon/>
+    </XStack>
   )
 }
