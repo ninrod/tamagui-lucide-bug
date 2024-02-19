@@ -1,12 +1,12 @@
 import '../tamagui-web.css'
 import { config } from '../tamagui.config'
 
-import { DarkTheme, DefaultTheme, ThemeProvider} from '@react-navigation/native'
 import { SplashScreen, Stack } from 'expo-router'
 import { useColorScheme } from 'react-native'
-import { TamaguiProvider } from 'tamagui'
+import { TamaguiProvider, Theme } from 'tamagui'
 import { useFonts } from 'expo-font'
-import { useEffect } from 'react'
+import { createContext, useEffect, useMemo, useState } from 'react'
+import { ThemeContext } from './components/ThemeContext'
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -22,16 +22,20 @@ export const unstable_settings = {
 SplashScreen.preventAutoHideAsync()
 
 const RootLayoutNav = () => {
+  const [isDarkTheme, setIsDarkTheme] = useState(false);
+
   const colorScheme = useColorScheme()
   return (
-    <TamaguiProvider config={config} defaultTheme={colorScheme as any}>
-      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-        <Stack>
-          <Stack.Screen name="(telas)" options={{ headerShown: false }} />
-          <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
-        </Stack>
-      </ThemeProvider>
-    </TamaguiProvider>
+    <ThemeContext.Provider value={{isDarkTheme: isDarkTheme, setIsDarkTheme: setIsDarkTheme}}>
+      <TamaguiProvider config={config} defaultTheme={colorScheme as any}>
+        <Theme name={isDarkTheme ? "dark" : "light"}>
+          <Stack>
+            <Stack.Screen name="(telas)" options={{ headerShown: false }} />
+            <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
+          </Stack>
+        </Theme>
+      </TamaguiProvider>
+    </ThemeContext.Provider>
   )
 }
 
@@ -40,6 +44,7 @@ export default function RootLayout() {
     Inter: require('@tamagui/font-inter/otf/Inter-Medium.otf'),
     InterBold: require('@tamagui/font-inter/otf/Inter-Bold.otf'),
   })
+
 
   useEffect(() => {
     if (interLoaded || interError) {
